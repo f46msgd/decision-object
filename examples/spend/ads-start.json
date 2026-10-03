@@ -1,0 +1,45 @@
+{
+  "id": "r_01JD05EXAMPLE05XQZ7K",
+  "version": 2,
+  "created_at": "2026-09-03T02:00:00Z",
+  "updated_at": "2026-09-03T08:00:00Z",
+  "request": {
+    "kind": "decision",
+    "project": "recipe-box-app",
+    "category": "spend.ads",
+    "title": "Start paid search ads this week?",
+    "why": "It starts recurring spend and the owner sets the budget.",
+    "context": "Organic installs are 15–20/day. A starter campaign would cost about $5/day.",
+    "options": [
+      {
+        "key": "now",
+        "label": "Start at $5/day this week"
+      },
+      {
+        "key": "later",
+        "label": "Wait until there are 10 ratings"
+      }
+    ],
+    "rec": "later",
+    "rec_reason": "Ads convert better once the listing has ratings.",
+    "confidence": "medium",
+    "risk": [
+      "money"
+    ],
+    "spend": {
+      "amount": 5,
+      "currency": "USD",
+      "period": "day"
+    },
+    "effort": "10 sec",
+    "tier": "week",
+    "source": {
+      "agent": "growth-agent",
+      "host": "codex"
+    }
+  },
+  "response": {
+    "status": "deferred",
+    "note": "Ask me again after the first 10 ratings come in."
+  }
+}

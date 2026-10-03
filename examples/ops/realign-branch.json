@@ -1,0 +1,38 @@
+{
+  "id": "r_01JD13EXAMPLE13XQZ7K",
+  "version": 3,
+  "created_at": "2026-09-07T12:00:00Z",
+  "updated_at": "2026-09-08T01:20:00Z",
+  "request": {
+    "kind": "command",
+    "project": "mobile-apps",
+    "category": "ops.git-realign",
+    "title": "Reset the build server's checkout to origin/main",
+    "why": "It discards two local commits; the safety policy lets only the owner run irreversible git resets.",
+    "context": "The build server is 2 commits ahead (old generated reports you said to drop) and 169 behind.",
+    "command": "cd ~/code/mobile-apps && git fetch origin && git reset --hard origin/main && git log --oneline -1",
+    "cwd": "~ (on the build server)",
+    "risk": [
+      "irreversible"
+    ],
+    "reversible": false,
+    "effort": "10 sec",
+    "tier": "week",
+    "source": {
+      "agent": "ops-agent",
+      "host": "claude-code"
+    }
+  },
+  "response": {
+    "status": "done",
+    "choice": "done",
+    "decided_by": "human",
+    "decided_at": "2026-09-08T01:00:00Z",
+    "decided_channel": "web"
+  },
+  "ack": {
+    "outcome": "executed",
+    "note": "Verified: build server HEAD now matches origin/main.",
+    "at": "2026-09-08T01:20:00Z"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "id": "r_01JD08EXAMPLE08XQZ7K",
+  "version": 3,
+  "created_at": "2026-09-05T01:00:00Z",
+  "updated_at": "2026-09-05T02:45:00Z",
+  "request": {
+    "kind": "decision",
+    "project": "websites",
+    "category": "release.web-deploy",
+    "title": "Merge and deploy both website changes together?",
+    "why": "Deploying changes what customers see, and one change touches the pricing page.",
+    "context": "Change A: new blog layout (low risk). Change B: rewritten pricing page copy.",
+    "options": [
+      {
+        "key": "both",
+        "label": "Deploy both now"
+      },
+      {
+        "key": "split",
+        "label": "Deploy A now, B after review"
+      },
+      {
+        "key": "none",
+        "label": "Deploy neither yet"
+      }
+    ],
+    "rec": "split",
+    "rec_reason": "A is safe; B changes public claims and deserves a read first.",
+    "risk": [
+      "external"
+    ],
+    "reversible": true,
+    "effort": "1 min",
+    "tier": "week",
+    "artifacts": [
+      {
+        "type": "diff",
+        "title": "Pricing page copy change",
+        "content": "- Plans from $9/month\n+ Plans from $9/month, cancel anytime\n"
+      }
+    ],
+    "source": {
+      "agent": "site-agent",
+      "host": "claude-code"
+    }
+  },
+  "response": {
+    "status": "decided",
+    "choice": "split",
+    "decided_by": "human",
+    "decided_at": "2026-09-05T02:20:00Z",
+    "decided_channel": "web",
+    "conditions": "For B, drop \"cancel anytime\" until the cancel flow actually exists."
+  },
+  "ack": {
+    "outcome": "executed",
+    "note": "A is live. B was edited per your condition and is waiting as a new review item.",
+    "at": "2026-09-05T02:45:00Z"
+  }
+}

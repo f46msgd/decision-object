@@ -1,0 +1,52 @@
+{
+  "id": "r_01JD19EXAMPLE19XQZ7K",
+  "version": 3,
+  "created_at": "2026-09-10T01:00:00Z",
+  "updated_at": "2026-09-10T02:30:00Z",
+  "request": {
+    "kind": "decision",
+    "project": "life-dashboard",
+    "category": "data.import",
+    "title": "How should sleep and step data get into the weekly report?",
+    "why": "It involves the owner's personal health data and which apps can read it.",
+    "options": [
+      {
+        "key": "shortcut",
+        "label": "A phone automation exports a daily summary file"
+      },
+      {
+        "key": "export",
+        "label": "Manual full export once a week"
+      },
+      {
+        "key": "skip",
+        "label": "Leave health data out"
+      }
+    ],
+    "rec": "shortcut",
+    "rec_reason": "Automatic, and only a daily summary leaves the phone.",
+    "risk": [
+      "data"
+    ],
+    "reversible": true,
+    "effort": "5 min",
+    "tier": "later",
+    "source": {
+      "agent": "dashboard-agent",
+      "host": "claude-code"
+    }
+  },
+  "response": {
+    "status": "decided",
+    "choice": "shortcut",
+    "decided_by": "human",
+    "decided_at": "2026-09-10T02:00:00Z",
+    "decided_channel": "pwa",
+    "conditions": "Summary only (daily totals). No heart rate, no locations."
+  },
+  "ack": {
+    "outcome": "executed",
+    "note": "Automation set up to export daily sleep and step totals only; first file arrives tomorrow.",
+    "at": "2026-09-10T02:30:00Z"
+  }
+}

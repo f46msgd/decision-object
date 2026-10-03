@@ -1,0 +1,55 @@
+{
+  "id": "r_01JD10EXAMPLE10XQZ7K",
+  "version": 3,
+  "created_at": "2026-09-06T09:00:00Z",
+  "updated_at": "2026-09-06T10:20:00Z",
+  "request": {
+    "kind": "decision",
+    "project": "services-site",
+    "category": "outreach.claim-wording",
+    "title": "Can the services page say \"we track 700+ sources daily\"?",
+    "why": "It is a public claim about the business; the owner is accountable for it.",
+    "context": "The tracker currently lists 740 sources, but about 200 have not returned data in 30 days.",
+    "options": [
+      {
+        "key": "yes",
+        "label": "Yes, use \"700+\""
+      },
+      {
+        "key": "active",
+        "label": "Say \"500+ active sources\""
+      },
+      {
+        "key": "no",
+        "label": "Don't state a number"
+      }
+    ],
+    "rec": "active",
+    "rec_reason": "Only active sources are defensible if a customer checks.",
+    "risk": [
+      "external",
+      "brand"
+    ],
+    "reversible": true,
+    "effort": "10 sec",
+    "tier": "week",
+    "source": {
+      "agent": "site-agent",
+      "host": "codex"
+    }
+  },
+  "response": {
+    "status": "decided",
+    "choice": "no",
+    "decided_by": "human",
+    "decided_at": "2026-09-06T10:00:00Z",
+    "decided_channel": "pwa",
+    "note": "No numbers on public pages for now.",
+    "standing_rule": "Never publish a metric on a public page unless a customer could verify it from the product itself."
+  },
+  "ack": {
+    "outcome": "executed",
+    "note": "Removed the number from the page; the rule was added as a draft delegation rule for you to confirm.",
+    "at": "2026-09-06T10:20:00Z"
+  }
+}

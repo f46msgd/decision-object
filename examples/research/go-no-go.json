@@ -1,0 +1,62 @@
+{
+  "id": "r_01JD30EXAMPLE30XQZ7K",
+  "version": 3,
+  "created_at": "2026-09-17T01:00:00Z",
+  "updated_at": "2026-09-17T05:00:00Z",
+  "request": {
+    "kind": "decision",
+    "project": "new-product",
+    "category": "research.go-no-go",
+    "title": "Build version 1 now, or freeze and run cheap experiments first?",
+    "why": "Starting a new project competes with the owner's sales focus; only they can make that trade.",
+    "options": [
+      {
+        "key": "build",
+        "label": "Build version 1 now"
+      },
+      {
+        "key": "narrow",
+        "label": "Build a narrow self-use version, cap 2 hours/week"
+      },
+      {
+        "key": "freeze",
+        "label": "Freeze for 30 days, run 3 experiments"
+      },
+      {
+        "key": "stop",
+        "label": "Stop"
+      }
+    ],
+    "rec": "narrow",
+    "rec_reason": "The owner's own pain is measurable now, and agent build cost is low.",
+    "confidence": "medium",
+    "risk": [
+      "money"
+    ],
+    "spend": {
+      "amount": 10,
+      "currency": "USD",
+      "period": "month"
+    },
+    "effort": "5 min",
+    "tier": "week",
+    "due": "2026-09-20",
+    "source": {
+      "agent": "research-lead",
+      "host": "claude-code"
+    }
+  },
+  "response": {
+    "status": "decided",
+    "choice": "narrow",
+    "decided_by": "human",
+    "decided_at": "2026-09-17T04:00:00Z",
+    "decided_channel": "pwa",
+    "conditions": "Review on day 30 with three numbers; if all three are weak, shrink it to a personal tool."
+  },
+  "ack": {
+    "outcome": "executed",
+    "note": "Started; the three review numbers are tracked in the weekly digest.",
+    "at": "2026-09-17T05:00:00Z"
+  }
+}

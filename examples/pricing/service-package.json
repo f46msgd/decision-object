@@ -1,0 +1,40 @@
+{
+  "id": "r_01JD03EXAMPLE03XQZ7K",
+  "version": 2,
+  "created_at": "2026-09-02T10:00:00Z",
+  "updated_at": "2026-09-02T13:20:00Z",
+  "request": {
+    "kind": "decision",
+    "project": "consulting",
+    "category": "pricing.service",
+    "title": "How should the data-audit service be priced?",
+    "why": "Pricing a service is a commitment to customers and sets the business model.",
+    "context": "Two prospects asked for a one-off data audit. Delivery takes about 3 days.",
+    "options": [
+      {
+        "key": "fixed",
+        "label": "Fixed fee per audit"
+      },
+      {
+        "key": "hourly",
+        "label": "Hourly, billed after delivery"
+      }
+    ],
+    "rec": "fixed",
+    "rec_reason": "Buyers compare fixed packages more easily, and scope is predictable.",
+    "confidence": "low",
+    "risk": [
+      "external"
+    ],
+    "effort": "2 min",
+    "tier": "week",
+    "source": {
+      "agent": "biz-agent",
+      "host": "claude-code"
+    }
+  },
+  "response": {
+    "status": "feedback",
+    "note": "Neither. I don't want one-off audits. Offer it as a monthly retainer with a 3-month minimum; the audit is month one. Rewrite the offer and bring it back."
+  }
+}

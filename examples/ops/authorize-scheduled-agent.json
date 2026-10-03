@@ -1,0 +1,49 @@
+{
+  "id": "r_01JD15EXAMPLE15XQZ7K",
+  "version": 3,
+  "created_at": "2026-09-08T02:00:00Z",
+  "updated_at": "2026-09-08T03:40:00Z",
+  "request": {
+    "kind": "decision",
+    "project": "home-server",
+    "category": "security.scheduled-agent",
+    "title": "Allow a weekly review agent to run on the home server?",
+    "why": "It runs unattended with access to the owner's repos and subscription quota.",
+    "context": "Sundays 21:00. Read-only review; writes only its own report folder; clears API keys first so it can't use pay-as-you-go billing.",
+    "options": [
+      {
+        "key": "yes",
+        "label": "Allow, Sundays 21:00"
+      },
+      {
+        "key": "no",
+        "label": "Not yet"
+      }
+    ],
+    "rec": "yes",
+    "rec_reason": "Last manual review found 4 stuck items; the schedule only uses subscription quota.",
+    "risk": [
+      "security"
+    ],
+    "reversible": true,
+    "undo": "Unload the scheduled job.",
+    "effort": "30 sec",
+    "tier": "week",
+    "source": {
+      "agent": "ops-agent",
+      "host": "claude-code"
+    }
+  },
+  "response": {
+    "status": "decided",
+    "choice": "yes",
+    "decided_by": "human",
+    "decided_at": "2026-09-08T03:00:00Z",
+    "decided_channel": "pwa"
+  },
+  "ack": {
+    "outcome": "executed",
+    "note": "Script and schedule are ready; one install command is waiting for you because it needs your login.",
+    "at": "2026-09-08T03:40:00Z"
+  }
+}

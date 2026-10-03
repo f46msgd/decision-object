@@ -1,0 +1,52 @@
+{
+  "id": "r_01JD18EXAMPLE18XQZ7K",
+  "version": 3,
+  "created_at": "2026-09-09T06:00:00Z",
+  "updated_at": "2026-09-09T07:40:00Z",
+  "request": {
+    "kind": "decision",
+    "project": "habit-app",
+    "category": "product.onboarding",
+    "title": "Ship the shorter onboarding (3 screens instead of 5)?",
+    "why": "It changes the first experience of every new user.",
+    "options": [
+      {
+        "key": "ship",
+        "label": "Ship the 3-screen version"
+      },
+      {
+        "key": "test",
+        "label": "A/B test both for two weeks"
+      }
+    ],
+    "rec": "test",
+    "rec_reason": "Onboarding drives retention; a two-week test is cheap.",
+    "reversible": true,
+    "effort": "3 min",
+    "tier": "week",
+    "artifacts": [
+      {
+        "type": "diff",
+        "title": "Onboarding flow",
+        "content": "- screens: [welcome, goals, reminders, widget, paywall]\n+ screens: [welcome, goals, paywall]\n"
+      }
+    ],
+    "source": {
+      "agent": "product-agent",
+      "host": "cursor"
+    }
+  },
+  "response": {
+    "status": "decided",
+    "choice": "test",
+    "decided_by": "human",
+    "decided_at": "2026-09-09T07:00:00Z",
+    "decided_channel": "pwa",
+    "conditions": "Keep the reminders screen in both variants; it is the one that brings people back."
+  },
+  "ack": {
+    "outcome": "executed",
+    "note": "A/B test live: variant B is 4 screens with reminders kept. Results in two weeks.",
+    "at": "2026-09-09T07:40:00Z"
+  }
+}

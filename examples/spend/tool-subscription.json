@@ -1,0 +1,44 @@
+{
+  "id": "r_01JD06EXAMPLE06XQZ7K",
+  "version": 2,
+  "created_at": "2026-09-04T02:00:00Z",
+  "updated_at": "2026-09-04T03:10:00Z",
+  "request": {
+    "kind": "decision",
+    "project": "infra",
+    "category": "spend.saas-subscription",
+    "title": "Pay $12/month for the error-tracking tool?",
+    "why": "It is a new recurring charge.",
+    "context": "The free tier caps at 5k events/month; last month we hit 7k.",
+    "options": [
+      {
+        "key": "pay",
+        "label": "Upgrade to $12/month"
+      },
+      {
+        "key": "sample",
+        "label": "Stay free, sample errors at 50%"
+      }
+    ],
+    "rec": "pay",
+    "rec_reason": "Sampling hides rare crashes, which are the ones that matter.",
+    "risk": [
+      "money"
+    ],
+    "spend": {
+      "amount": 12,
+      "currency": "USD",
+      "period": "month"
+    },
+    "effort": "10 sec",
+    "tier": "later",
+    "source": {
+      "agent": "ops-agent",
+      "host": "claude-code"
+    }
+  },
+  "response": {
+    "status": "question",
+    "note": "Where are the 7k events coming from? If one noisy warning is half of it, fix that first."
+  }
+}

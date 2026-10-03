@@ -1,0 +1,51 @@
+{
+  "id": "r_01JD07EXAMPLE07XQZ7K",
+  "version": 3,
+  "created_at": "2026-09-04T04:50:00Z",
+  "updated_at": "2026-09-04T05:10:00Z",
+  "request": {
+    "kind": "decision",
+    "project": "habit-app",
+    "category": "release.app-store-submit",
+    "title": "Submit build 1.2.0 for review now?",
+    "why": "Submitting is a public release; the owner approves releases.",
+    "context": "All tests pass. Changes: two crash fixes and a new widget. Screenshots are updated.",
+    "options": [
+      {
+        "key": "submit",
+        "label": "Submit now"
+      },
+      {
+        "key": "hold",
+        "label": "Hold until Monday"
+      }
+    ],
+    "rec": "submit",
+    "rec_reason": "Crash fixes affect about 1% of sessions; the sooner the better.",
+    "confidence": "high",
+    "risk": [
+      "external"
+    ],
+    "reversible": true,
+    "undo": "A submitted build can be withdrawn before approval.",
+    "effort": "10 sec",
+    "tier": "now",
+    "source": {
+      "agent": "release-bot",
+      "host": "claude-code",
+      "branch": "release/1.2"
+    }
+  },
+  "response": {
+    "status": "decided",
+    "choice": "submit",
+    "decided_by": "human",
+    "decided_at": "2026-09-04T05:02:00Z",
+    "decided_channel": "telegram"
+  },
+  "ack": {
+    "outcome": "executed",
+    "note": "Build 1.2.0 submitted for review; typical review time is 24–48 hours.",
+    "at": "2026-09-04T05:10:00Z"
+  }
+}

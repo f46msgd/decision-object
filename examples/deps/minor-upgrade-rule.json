@@ -1,0 +1,47 @@
+{
+  "id": "r_01JD23EXAMPLE23XQZ7K",
+  "version": 3,
+  "created_at": "2026-09-12T00:00:00Z",
+  "updated_at": "2026-09-12T00:10:00Z",
+  "request": {
+    "kind": "decision",
+    "project": "habit-app",
+    "category": "deps.minor-upgrade",
+    "title": "Upgrade the charting library 4.2.1 → 4.3.0?",
+    "why": "Dependency upgrades can change app behavior.",
+    "options": [
+      {
+        "key": "upgrade",
+        "label": "Upgrade"
+      },
+      {
+        "key": "skip",
+        "label": "Skip this release"
+      }
+    ],
+    "rec": "upgrade",
+    "rec_reason": "Minor release, all tests pass, fixes a memory leak we hit.",
+    "confidence": "high",
+    "reversible": true,
+    "undo": "Revert the lockfile commit.",
+    "effort": "10 sec",
+    "tier": "later",
+    "source": {
+      "agent": "deps-bot",
+      "host": "codex"
+    }
+  },
+  "response": {
+    "status": "decided",
+    "choice": "upgrade",
+    "decided_by": "rule",
+    "rule_id": "rule_3",
+    "decided_at": "2026-09-12T00:05:00Z",
+    "decided_channel": "web"
+  },
+  "ack": {
+    "outcome": "executed",
+    "note": "Upgraded via rule #3 (minor upgrades with passing tests); shown in your handled list.",
+    "at": "2026-09-12T00:10:00Z"
+  }
+}

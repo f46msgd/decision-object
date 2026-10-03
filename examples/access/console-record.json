@@ -1,0 +1,39 @@
+{
+  "id": "r_01JD27EXAMPLE27XQZ7K",
+  "version": 3,
+  "created_at": "2026-09-15T02:00:00Z",
+  "updated_at": "2026-09-15T03:30:00Z",
+  "request": {
+    "kind": "task",
+    "project": "habit-app",
+    "category": "access.console-login",
+    "title": "Create the app record in the store console",
+    "why": "It needs the owner's account login and two-factor code.",
+    "context": "Name, bundle id and SKU are pre-filled in the linked checklist; about 3 minutes.",
+    "links": [
+      {
+        "label": "Checklist",
+        "path": "docs/store-record-checklist.md"
+      }
+    ],
+    "effort": "3 min",
+    "tier": "now",
+    "source": {
+      "agent": "release-bot",
+      "host": "claude-code"
+    }
+  },
+  "response": {
+    "status": "done",
+    "choice": "done",
+    "decided_by": "human",
+    "decided_at": "2026-09-15T03:00:00Z",
+    "decided_channel": "web",
+    "note": "Done. The name was taken, so I added \" Journal\" at the end."
+  },
+  "ack": {
+    "outcome": "executed",
+    "note": "Picked up the new name; metadata and screenshots updated to match.",
+    "at": "2026-09-15T03:30:00Z"
+  }
+}

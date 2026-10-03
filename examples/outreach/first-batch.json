@@ -1,0 +1,43 @@
+{
+  "id": "r_01JD11EXAMPLE11XQZ7K",
+  "version": 2,
+  "created_at": "2026-09-07T01:00:00Z",
+  "updated_at": "2026-09-07T02:30:00Z",
+  "request": {
+    "kind": "decision",
+    "project": "consulting",
+    "category": "outreach.prospects",
+    "title": "Who should get the first 10 outreach emails?",
+    "why": "Choosing who to contact first is a relationship and positioning call.",
+    "context": "Candidate list: 42 small studios that publicly mention data problems, ranked by fit score.",
+    "options": [
+      {
+        "key": "top",
+        "label": "Top 10 by fit score"
+      },
+      {
+        "key": "warm",
+        "label": "The 6 warm contacts first, then top 4"
+      },
+      {
+        "key": "hold",
+        "label": "Hold until the offer page is ready"
+      }
+    ],
+    "rec": "warm",
+    "rec_reason": "Warm contacts reply 3–5× more often; their feedback improves the cold emails.",
+    "risk": [
+      "external"
+    ],
+    "effort": "1 min",
+    "tier": "week",
+    "source": {
+      "agent": "biz-agent",
+      "host": "claude-code"
+    }
+  },
+  "response": {
+    "status": "feedback",
+    "note": "Skip the two studios we pitched last year. Start with the three that asked about pricing in public threads, then the warm contacts. Show me the first email before anything goes out."
+  }
+}

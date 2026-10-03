@@ -1,0 +1,64 @@
+{
+  "id": "r_01JD09EXAMPLE09XQZ7K",
+  "version": 2,
+  "created_at": "2026-09-06T03:00:00Z",
+  "updated_at": "2026-09-06T04:10:00Z",
+  "request": {
+    "kind": "decision",
+    "project": "open-spec",
+    "category": "outreach.public-post",
+    "title": "Post a \"Show HN\" under your own name?",
+    "why": "Posting speaks for the owner in public; an agent must not post or choose the identity.",
+    "context": "A 180-word draft is attached. Posting takes about 15 minutes, and replying to comments in the first 2 hours matters most.",
+    "options": [
+      {
+        "key": "personal",
+        "label": "Personal account, I'll post it"
+      },
+      {
+        "key": "company",
+        "label": "Company account",
+        "detail": "Keeps a personal name out, but new accounts get less trust."
+      },
+      {
+        "key": "skip",
+        "label": "Not this time"
+      }
+    ],
+    "rec": "personal",
+    "rec_reason": "Individual makers get more trust and engagement in this community.",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "claim": "Show HN expects the poster to have made the thing and to answer questions.",
+        "source": {
+          "type": "url",
+          "ref": "https://news.ycombinator.com/showhn.html"
+        }
+      }
+    ],
+    "risk": [
+      "external",
+      "brand"
+    ],
+    "reversible": false,
+    "undo": "The post can be deleted, but copies may persist.",
+    "artifacts": [
+      {
+        "type": "markdown",
+        "title": "Show HN draft",
+        "content": "Show HN: An open payload format for asking humans to decide\n\nAgents ask us things all day…"
+      }
+    ],
+    "effort": "15 min",
+    "tier": "later",
+    "source": {
+      "agent": "spec-writer",
+      "host": "claude-code"
+    }
+  },
+  "response": {
+    "status": "question",
+    "note": "Before I post: list the 5 most likely objections in the comments and how I'd answer each."
+  }
+}

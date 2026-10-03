@@ -1,0 +1,30 @@
+{
+  "id": "r_01JD25EXAMPLE25XQZ7K",
+  "version": 2,
+  "created_at": "2026-09-13T08:00:00Z",
+  "updated_at": "2026-09-13T09:10:00Z",
+  "request": {
+    "kind": "brief",
+    "project": "agent-tools",
+    "category": "brief.concept",
+    "title": "Who runs an MCP server, and where?",
+    "why": "Next week you choose where to deploy; this 3-minute read makes that choice easy.",
+    "body": "**Nothing to do. Tap \"read\" when done.**\n\nMCP is a protocol, not a hosted service.\n\n| Role | Who runs it | Example |\n|---|---|---|\n| Host | The AI app you use | an IDE agent, a chat app |\n| Server | Your machine (local) or the tool's maker (remote) | your own API, a vendor's API |\n\n- Local server: a process on your machine; only that machine can use it.\n- Remote server: deployed online behind a token; works from your phone too.",
+    "related_ids": [
+      "r_01JD99EXAMPLE99XQZ7K"
+    ],
+    "effort": "3 min",
+    "tier": "week",
+    "source": {
+      "agent": "research-lead",
+      "host": "claude-code"
+    }
+  },
+  "response": {
+    "status": "done",
+    "choice": "read",
+    "decided_by": "human",
+    "decided_at": "2026-09-13T09:10:00Z",
+    "decided_channel": "pwa"
+  }
+}

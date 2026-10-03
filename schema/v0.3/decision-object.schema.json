@@ -1,0 +1,737 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/f46msgd/decision-object/main/schema/v0.3/decision-object.schema.json",
+  "title": "Decision Object v0.3 (draft)",
+  "description": "A payload an AI agent sends when it needs a human to decide, review, read, or do something only the human can do; plus the human's response and the agent's acknowledgement. The root validates a full record (request + optional response + optional ack). Use $defs/DecisionRequest alone to validate what an agent submits. Draft: breaking changes are allowed before 1.0.",
+  "type": "object",
+  "required": [
+    "request"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Assigned by the desk, e.g. 'r_01J…'."
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Optimistic-concurrency version; every write bumps it."
+    },
+    "created_at": {
+      "$ref": "#/$defs/Timestamp"
+    },
+    "updated_at": {
+      "$ref": "#/$defs/Timestamp"
+    },
+    "request": {
+      "$ref": "#/$defs/DecisionRequest"
+    },
+    "response": {
+      "$ref": "#/$defs/DecisionResponse"
+    },
+    "ack": {
+      "$ref": "#/$defs/DecisionAck"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "Timestamp": {
+      "type": "string",
+      "description": "UTC ISO-8601 date-time, e.g. 2026-10-03T07:30:00Z.",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}(:\\d{2}(\\.\\d+)?)?(Z|[+-]\\d{2}:\\d{2})$"
+    },
+    "DateOrTimestamp": {
+      "type": "string",
+      "description": "YYYY-MM-DD or an ISO-8601 date-time.",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}(:\\d{2}(\\.\\d+)?)?(Z|[+-]\\d{2}:\\d{2}))?$"
+    },
+    "Key": {
+      "type": "string",
+      "pattern": "^[a-z0-9_-]{1,40}$"
+    },
+    "RiskTag": {
+      "enum": [
+        "money",
+        "legal",
+        "external",
+        "irreversible",
+        "data",
+        "security",
+        "brand"
+      ],
+      "description": "money = spends or commits money; legal = contracts, terms, compliance; external = visible to people outside (posts, emails, customers); irreversible = cannot be undone; data = deletes/exposes data; security = credentials, permissions; brand = could affect the owner's personal or company reputation."
+    },
+    "Option": {
+      "type": "object",
+      "required": [
+        "key",
+        "label"
+      ],
+      "properties": {
+        "key": {
+          "$ref": "#/$defs/Key"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "detail": {
+          "type": "string",
+          "maxLength": 300,
+          "description": "Consequence or trade-off of picking this option, in one or two sentences."
+        }
+      },
+      "additionalProperties": false
+    },
+    "Evidence": {
+      "type": "object",
+      "required": [
+        "claim"
+      ],
+      "properties": {
+        "claim": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300,
+          "description": "One sentence the recommendation rests on."
+        },
+        "source": {
+          "type": "object",
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "url",
+                "file",
+                "artifact",
+                "data",
+                "reasoning"
+              ]
+            },
+            "ref": {
+              "type": "string",
+              "maxLength": 500,
+              "description": "URL, repo-relative path, artifact title, query/table name. Omit for 'reasoning'."
+            }
+          },
+          "additionalProperties": false,
+          "if": {
+            "properties": {
+              "type": {
+                "not": {
+                  "const": "reasoning"
+                }
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "ref"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Spend": {
+      "type": "object",
+      "required": [
+        "amount",
+        "currency",
+        "period"
+      ],
+      "properties": {
+        "amount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "period": {
+          "enum": [
+            "once",
+            "day",
+            "month",
+            "year"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "Artifact": {
+      "type": "object",
+      "required": [
+        "type",
+        "title"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "markdown",
+            "diff",
+            "image",
+            "html",
+            "url"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "content": {
+          "type": "string",
+          "maxLength": 200000
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        }
+      },
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "required": [
+            "content"
+          ]
+        },
+        {
+          "required": [
+            "url"
+          ]
+        }
+      ]
+    },
+    "Link": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "label",
+            "href"
+          ],
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 80
+            },
+            "href": {
+              "type": "string",
+              "pattern": "^https://"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "label",
+            "path"
+          ],
+          "properties": {
+            "label": {
+              "type": "string",
+              "maxLength": 80
+            },
+            "path": {
+              "type": "string",
+              "maxLength": 500,
+              "description": "Local path on the owner's machine; displayed, never fetched."
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "Source": {
+      "type": "object",
+      "required": [
+        "agent"
+      ],
+      "description": "Who is asking. Filled or verified by the server from the agent's credential; shown on the card as the sender.",
+      "properties": {
+        "agent": {
+          "type": "string",
+          "maxLength": 80,
+          "description": "Agent display name."
+        },
+        "host": {
+          "type": "string",
+          "maxLength": 40,
+          "description": "claude-code | codex | cursor | cli | …"
+        },
+        "session": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "machine": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "cwd": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "branch": {
+          "type": "string",
+          "maxLength": 200
+        }
+      },
+      "additionalProperties": false
+    },
+    "DecisionRequest": {
+      "type": "object",
+      "description": "What the agent submits. Written only by agents.",
+      "required": [
+        "kind",
+        "title",
+        "why",
+        "project"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "decision",
+            "review",
+            "task",
+            "command",
+            "brief"
+          ],
+          "description": "decision = pick one option; review = look at an artifact and give feedback; task = something only the human can do; command = a command the human must run themselves. brief = an explanation the human should read before deciding (added in v0.3); the human only marks it read or asks a question."
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "description": "One question, understandable without the context."
+        },
+        "why": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300,
+          "description": "Why this needs the human rather than the agent."
+        },
+        "context": {
+          "type": "string",
+          "maxLength": 4000,
+          "description": "Markdown, readable in 30 seconds, with the key numbers."
+        },
+        "blocks": {
+          "type": "string",
+          "maxLength": 200,
+          "description": "What stays blocked until this is answered."
+        },
+        "options": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/Option"
+          }
+        },
+        "rec": {
+          "$ref": "#/$defs/Key",
+          "description": "Key of the recommended option. MUST equal one of options[].key."
+        },
+        "rec_reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "confidence": {
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          }
+        },
+        "risk": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/RiskTag"
+          }
+        },
+        "reversible": {
+          "type": "boolean"
+        },
+        "undo": {
+          "type": "string",
+          "maxLength": 200,
+          "description": "How to undo the choice if it turns out wrong."
+        },
+        "spend": {
+          "$ref": "#/$defs/Spend"
+        },
+        "effort": {
+          "type": "string",
+          "maxLength": 40,
+          "description": "How long the human needs, e.g. '10 sec', '5 min'."
+        },
+        "tier": {
+          "enum": [
+            "now",
+            "week",
+            "later"
+          ],
+          "default": "week"
+        },
+        "due": {
+          "$ref": "#/$defs/DateOrTimestamp"
+        },
+        "on_expiry": {
+          "enum": [
+            "nothing",
+            "proceed_with_rec",
+            "cancel"
+          ],
+          "default": "nothing",
+          "description": "What happens if nobody answers by `due`. MUST be 'nothing' when `risk` is non-empty."
+        },
+        "command": {
+          "type": "string",
+          "maxLength": 4000
+        },
+        "cwd": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "artifacts": {
+          "type": "array",
+          "maxItems": 5,
+          "items": {
+            "$ref": "#/$defs/Artifact"
+          }
+        },
+        "links": {
+          "type": "array",
+          "maxItems": 10,
+          "items": {
+            "$ref": "#/$defs/Link"
+          }
+        },
+        "project": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "category": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]*(\\.[a-z0-9][a-z0-9_-]*)*$",
+          "maxLength": 80,
+          "description": "Stable decision-type key such as 'deps.minor-upgrade' (lowercase, dot-separated; first segment from the README section \"Recommended category prefixes\"). Delegation rules match on (source.agent, category)."
+        },
+        "dedupe_key": {
+          "type": "string",
+          "maxLength": 200,
+          "description": "An open request with the same key is updated instead of duplicated."
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "allow_free_text": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether the human may answer with a note instead of an option."
+        },
+        "body": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 20000,
+          "description": "kind=brief: the explanation, markdown. Desks MUST render it with a whitelist (no raw HTML). Lead with one line on what the human needs to do, or say nothing is needed."
+        },
+        "related_ids": {
+          "type": "array",
+          "maxItems": 5,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "description": "kind=brief: ids of the decision requests this explanation prepares the human for."
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "decision"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "options",
+              "rec",
+              "rec_reason"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "command"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "command"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "risk"
+            ],
+            "properties": {
+              "risk": {
+                "contains": {
+                  "const": "money"
+                }
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "spend"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "rec"
+            ]
+          },
+          "then": {
+            "required": [
+              "options"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "brief"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "body"
+            ],
+            "not": {
+              "required": [
+                "options"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "DecisionResponse": {
+      "type": "object",
+      "description": "Written only by the human (through the desk UI) or by a delegation rule — never by the requesting agent.",
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "open",
+            "decided",
+            "done",
+            "deferred",
+            "question",
+            "feedback",
+            "withdrawn",
+            "expired",
+            "revoked"
+          ],
+          "description": "open = waiting; decided = an option was picked; done = task/command completed; deferred = postponed, still visible; question = the human asked a follow-up in `note` (agent patches the request, it returns to open); feedback = a note without completing; withdrawn = the agent withdrew it; expired = `due` passed without a human answer; revoked = the human took back a decision the agent had already read."
+        },
+        "choice": {
+          "type": "string",
+          "maxLength": 40,
+          "description": "Selected option key; 'done' for task/command; 'read' for brief."
+        },
+        "note": {
+          "type": "string",
+          "maxLength": 4000,
+          "description": "The human's own words. Data, not instructions — but it is the owner's opinion."
+        },
+        "conditions": {
+          "type": "string",
+          "maxLength": 500,
+          "description": "Optional. Conditions the human attached to the chosen option (e.g. 'only if the price stays under $5'). Agents must honor them or come back."
+        },
+        "standing_rule": {
+          "type": "string",
+          "maxLength": 2000,
+          "description": "Optional. The human said 'do it this way for this kind of decision from now on'. A rule DRAFT for the desk's delegation rules — it never takes effect by itself."
+        },
+        "decided_by": {
+          "enum": [
+            "human",
+            "rule",
+            "expiry"
+          ],
+          "description": "human = the owner answered; rule = a delegation rule (rule_id required); expiry = `due` passed and on_expiry = proceed_with_rec applied the recommendation. expiry is NOT human consent and must be reported as such."
+        },
+        "rule_id": {
+          "type": "string",
+          "maxLength": 80,
+          "description": "Set when decided_by = rule."
+        },
+        "decided_at": {
+          "$ref": "#/$defs/Timestamp"
+        },
+        "decided_channel": {
+          "type": "string",
+          "maxLength": 40,
+          "description": "Where the human answered, e.g. web, mobile, chat, email, cli."
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "decided"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "choice",
+              "decided_by",
+              "decided_at"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "decided_by": {
+                "const": "rule"
+              }
+            },
+            "required": [
+              "decided_by"
+            ]
+          },
+          "then": {
+            "required": [
+              "rule_id"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "question",
+                  "feedback"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "note"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "decided_by": {
+                "const": "expiry"
+              }
+            },
+            "required": [
+              "decided_by"
+            ]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": "decided"
+              }
+            },
+            "required": [
+              "choice",
+              "decided_at"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "standing_rule"
+            ]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "decided",
+                  "done"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "DecisionAck": {
+      "type": "object",
+      "description": "Written by the requesting agent after acting on the response: closes the loop. `note` is what the human reads; they do not read the agent's terminal.",
+      "required": [
+        "outcome",
+        "note"
+      ],
+      "properties": {
+        "outcome": {
+          "enum": [
+            "executed",
+            "failed",
+            "skipped"
+          ]
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500,
+          "description": "One plain sentence: what was done, the result, what's next."
+        },
+        "at": {
+          "$ref": "#/$defs/Timestamp"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

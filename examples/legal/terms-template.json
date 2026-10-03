@@ -1,0 +1,38 @@
+{
+  "id": "r_01JD21EXAMPLE21XQZ7K",
+  "version": 2,
+  "created_at": "2026-09-11T01:00:00Z",
+  "updated_at": "2026-09-11T01:30:00Z",
+  "request": {
+    "kind": "decision",
+    "project": "habit-app",
+    "category": "legal.terms-template",
+    "title": "Which terms of use: the store's standard terms or our own?",
+    "why": "Terms are a legal document published under the owner's name.",
+    "options": [
+      {
+        "key": "standard",
+        "label": "The store's standard terms"
+      },
+      {
+        "key": "custom",
+        "label": "Our own terms page"
+      }
+    ],
+    "rec": "standard",
+    "rec_reason": "No custom data use to disclose; standard terms are enough.",
+    "risk": [
+      "legal"
+    ],
+    "effort": "10 sec",
+    "tier": "later",
+    "source": {
+      "agent": "release-bot",
+      "host": "claude-code"
+    }
+  },
+  "response": {
+    "status": "feedback",
+    "note": "Both are acceptable, so this is your call. When two options are both compliant and only differ in taste, decide and tell me."
+  }
+}

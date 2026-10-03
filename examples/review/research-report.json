@@ -1,0 +1,36 @@
+{
+  "id": "r_01JD17EXAMPLE17XQZ7K",
+  "version": 3,
+  "created_at": "2026-09-09T01:00:00Z",
+  "updated_at": "2026-09-09T04:00:00Z",
+  "request": {
+    "kind": "review",
+    "project": "market-research",
+    "category": "review.research-report",
+    "title": "Review the competitor scan before it goes into the plan",
+    "why": "The plan will rest on these conclusions; the owner should agree with them.",
+    "context": "8 pages. Main claim: one direct competitor exists and is shallow on structured decisions.",
+    "artifacts": [
+      {
+        "type": "url",
+        "title": "Competitor scan (draft)",
+        "url": "https://example.com/reports/competitor-scan"
+      }
+    ],
+    "effort": "8 min",
+    "tier": "week",
+    "source": {
+      "agent": "research-lead",
+      "host": "claude-code"
+    }
+  },
+  "response": {
+    "status": "feedback",
+    "note": "Section 2 claims nobody does approval rules; check again, I think one competitor shipped that this summer. Otherwise fine."
+  },
+  "ack": {
+    "outcome": "executed",
+    "note": "You were right: the competitor shipped rule suggestions in June. Section 2 is corrected and the conclusion softened.",
+    "at": "2026-09-09T04:00:00Z"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "id": "r_01JD28EXAMPLE28XQZ7K",
+  "version": 2,
+  "created_at": "2026-09-15T05:00:00Z",
+  "updated_at": "2026-09-15T06:00:00Z",
+  "request": {
+    "kind": "decision",
+    "project": "recipe-box-app",
+    "category": "product.paywall",
+    "title": "What do users get after closing the out-of-credits paywall?",
+    "why": "It decides how generous the free tier is, which shapes revenue and reviews.",
+    "options": [
+      {
+        "key": "wait",
+        "label": "Credits refill tomorrow"
+      },
+      {
+        "key": "ad",
+        "label": "Watch an ad for one more credit"
+      }
+    ],
+    "rec": "wait",
+    "rec_reason": "Ads clash with the calm brand; a daily refill keeps people coming back.",
+    "effort": "30 sec",
+    "tier": "week",
+    "source": {
+      "agent": "product-agent",
+      "host": "claude-code"
+    }
+  },
+  "response": {
+    "status": "feedback",
+    "note": "Neither exactly. Give one free credit back after they invite a friend, max once a day. That gives us distribution and still feels generous."
+  }
+}

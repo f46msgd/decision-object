@@ -1,0 +1,78 @@
+{
+  "id": "r_01JD01EXAMPLE01XQZ7K",
+  "version": 3,
+  "created_at": "2026-09-01T02:00:00Z",
+  "updated_at": "2026-09-01T09:40:00Z",
+  "request": {
+    "kind": "decision",
+    "project": "recipe-box-app",
+    "category": "pricing.launch",
+    "title": "Launch pricing: paid upfront or subscription?",
+    "why": "Pricing is a business call, and changing it after launch affects early buyers' trust.",
+    "context": "The app passed review and only needs a price to ship. Of 5 comparable apps, 3 are paid upfront ($1.99–$7.99) and 2 are subscriptions (from $2.99/mo). Core features work offline, so there is no ongoing server cost per user.",
+    "blocks": "Store submission",
+    "options": [
+      {
+        "key": "paid",
+        "label": "Paid upfront, $3.49",
+        "detail": "One-time revenue; simplest for buyers who expect to pay for quality."
+      },
+      {
+        "key": "sub",
+        "label": "Free + $2.49/month",
+        "detail": "Recurring revenue, lower conversion; needs restore-purchase and downgrade handling."
+      },
+      {
+        "key": "tip",
+        "label": "Free + tip jar",
+        "detail": "Fastest cold start, unpredictable revenue."
+      }
+    ],
+    "rec": "paid",
+    "rec_reason": "No ongoing cost to cover, and paid upfront is the simplest model that matches this audience.",
+    "confidence": "medium",
+    "evidence": [
+      {
+        "claim": "3 of the 5 closest competitors charge upfront; their average is about $3.90.",
+        "source": {
+          "type": "data",
+          "ref": "research/competitors.csv"
+        }
+      },
+      {
+        "claim": "A subscription adds about 2 days of work for restore and expiry handling.",
+        "source": {
+          "type": "reasoning"
+        }
+      }
+    ],
+    "risk": [
+      "external"
+    ],
+    "reversible": true,
+    "undo": "The price can be changed in the store console at any time; existing buyers are unaffected.",
+    "effort": "1 min",
+    "tier": "now",
+    "due": "2026-09-05",
+    "source": {
+      "agent": "release-bot",
+      "host": "claude-code",
+      "branch": "release/1.0"
+    }
+  },
+  "response": {
+    "status": "decided",
+    "choice": "paid",
+    "decided_by": "human",
+    "decided_at": "2026-09-01T09:31:00Z",
+    "decided_channel": "pwa",
+    "note": "Go with $3.49.",
+    "conditions": "If first-week conversion is under 2%, come back and ask about a subscription.",
+    "standing_rule": "New apps launch paid upfront by default; don't start with a subscription."
+  },
+  "ack": {
+    "outcome": "executed",
+    "note": "Price set to $3.49 and the build is submitted; first-week conversion will be in the weekly report.",
+    "at": "2026-09-01T09:40:00Z"
+  }
+}

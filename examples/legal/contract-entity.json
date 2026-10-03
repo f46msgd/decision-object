@@ -1,0 +1,38 @@
+{
+  "id": "r_01JD22EXAMPLE22XQZ7K",
+  "version": 2,
+  "created_at": "2026-09-11T03:00:00Z",
+  "updated_at": "2026-09-11T04:00:00Z",
+  "request": {
+    "kind": "decision",
+    "project": "consulting",
+    "category": "legal.contract-entity",
+    "title": "Sign the first service contract as an individual or as the company?",
+    "why": "It decides who carries the legal and tax obligations.",
+    "options": [
+      {
+        "key": "company",
+        "label": "Sign as the company"
+      },
+      {
+        "key": "personal",
+        "label": "Sign personally"
+      }
+    ],
+    "rec": "company",
+    "rec_reason": "Limits personal liability and keeps invoices consistent.",
+    "risk": [
+      "legal"
+    ],
+    "effort": "1 min",
+    "tier": "week",
+    "source": {
+      "agent": "biz-agent",
+      "host": "claude-code"
+    }
+  },
+  "response": {
+    "status": "question",
+    "note": "Does the client's country require a local tax registration if the company signs? Check before I decide."
+  }
+}

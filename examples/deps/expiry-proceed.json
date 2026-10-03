@@ -1,0 +1,46 @@
+{
+  "id": "r_01JD24EXAMPLE24XQZ7K",
+  "version": 3,
+  "created_at": "2026-09-12T02:00:00Z",
+  "updated_at": "2026-09-14T00:20:00Z",
+  "request": {
+    "kind": "decision",
+    "project": "websites",
+    "category": "deps.patch-upgrade",
+    "title": "Apply the static-site generator patch 2.8.3 → 2.8.4?",
+    "why": "It changes a build dependency of the site, and dependency changes go through the owner by default.",
+    "options": [
+      {
+        "key": "apply",
+        "label": "Apply"
+      },
+      {
+        "key": "skip",
+        "label": "Skip"
+      }
+    ],
+    "rec": "apply",
+    "rec_reason": "Patch release; preview build is identical except for a fixed sitemap.",
+    "reversible": true,
+    "undo": "Redeploy the previous build.",
+    "effort": "10 sec",
+    "tier": "later",
+    "due": "2026-09-14T00:00:00Z",
+    "on_expiry": "proceed_with_rec",
+    "source": {
+      "agent": "site-agent",
+      "host": "claude-code"
+    }
+  },
+  "response": {
+    "status": "decided",
+    "choice": "apply",
+    "decided_by": "expiry",
+    "decided_at": "2026-09-14T00:00:00Z"
+  },
+  "ack": {
+    "outcome": "executed",
+    "note": "Applied on expiry (no answer by the due date, as allowed); this was not your approval.",
+    "at": "2026-09-14T00:20:00Z"
+  }
+}

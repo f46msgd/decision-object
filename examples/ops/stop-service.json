@@ -1,0 +1,27 @@
+{
+  "id": "r_01JD14EXAMPLE14XQZ7K",
+  "version": 2,
+  "created_at": "2026-09-02T12:00:00Z",
+  "updated_at": "2026-09-09T00:00:00Z",
+  "request": {
+    "kind": "command",
+    "project": "home-server",
+    "category": "ops.service-stop",
+    "title": "Stop the paused assistant service on the home server",
+    "why": "Stopping a service on the owner's machine needs their login.",
+    "command": "launchctl bootout gui/$(id -u)/com.example.assistant",
+    "reversible": true,
+    "undo": "launchctl bootstrap the same plist to start it again.",
+    "effort": "10 sec",
+    "tier": "later",
+    "due": "2026-09-09",
+    "on_expiry": "cancel",
+    "source": {
+      "agent": "ops-agent",
+      "host": "codex"
+    }
+  },
+  "response": {
+    "status": "expired"
+  }
+}

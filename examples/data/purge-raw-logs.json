@@ -1,0 +1,44 @@
+{
+  "id": "r_01JD20EXAMPLE20XQZ7K",
+  "version": 2,
+  "created_at": "2026-09-10T05:00:00Z",
+  "updated_at": "2026-09-10T08:00:00Z",
+  "request": {
+    "kind": "decision",
+    "project": "analytics-side-project",
+    "category": "data.purge-old-logs",
+    "title": "Delete raw request logs older than 90 days?",
+    "why": "Deleting data cannot be undone.",
+    "context": "Raw logs are 38 GB; aggregates are kept forever either way.",
+    "options": [
+      {
+        "key": "purge",
+        "label": "Delete logs older than 90 days"
+      },
+      {
+        "key": "archive",
+        "label": "Move them to cold storage instead"
+      }
+    ],
+    "rec": "purge",
+    "rec_reason": "Nothing reads raw logs after 30 days.",
+    "risk": [
+      "data",
+      "irreversible"
+    ],
+    "reversible": false,
+    "effort": "10 sec",
+    "tier": "later",
+    "source": {
+      "agent": "ops-agent",
+      "host": "claude-code"
+    }
+  },
+  "response": {
+    "status": "revoked",
+    "decided_by": "human",
+    "decided_at": "2026-09-10T08:00:00Z",
+    "decided_channel": "web",
+    "note": "Wait. Keep the last 12 months for the yearly comparison. Archive instead."
+  }
+}
